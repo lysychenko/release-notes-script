@@ -14,16 +14,16 @@
 #
 # Define all necessary variables
 # ---------------------------------------------------------
-$global:github_owner = "GitHub Owner Name Here"
-$global:github_repo = "GitHub Repo Name Here"
-$global:github_token = "GitHub Personal Access Token"
+# $global:github_owner = "GitHub Owner Name Here"
+# $global:github_repo = "GitHub Repo Name Here"
+# $global:github_token = "GitHub Personal Access Token"
 
-$global:octopus_url = 'Url to Octopus Deploy'
-$global:octopus_username = "Octopus Deploy Username"
-$global:octopus_password = ConvertTo-SecureString "Octopus Deploy Password" -AsPlainText -Force
-$global:octopus_apikey = "Octopus Deploy API Key"
-$global:octopus_projectName = "Octopus Deploy Project Name"
-$global:octopus_productionEnvironment = "Name of Production Environment in Octopus Deploy"
+# $global:octopus_url = 'Url to Octopus Deploy'
+# $global:octopus_username = "Octopus Deploy Username"
+# $global:octopus_password = ConvertTo-SecureString "Octopus Deploy Password" -AsPlainText -Force
+# $global:octopus_apikey = "Octopus Deploy API Key"
+# $global:octopus_projectName = "Octopus Deploy Project Name"
+# $global:octopus_productionEnvironment = "Name of Production Environment in Octopus Deploy"
 
 $global:current_commitId = $env:APPVEYOR_REPO_COMMIT
 
