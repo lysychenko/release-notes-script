@@ -17,7 +17,7 @@ $github = New-Module -ScriptBlock {
     function GetCommits {
         param([string] $base, [string] $head)
 		$headers = @{
-		    'Authorization' = 'token' + $github_token
+		    'Authorization' = 'token ' + $github_token
 		    'Accept' = 'application/vnd.github.v3+json'
 		}
 		$url = "https://api.github.com/repos/$github_repository/compare/" + $base + "..." + $head
