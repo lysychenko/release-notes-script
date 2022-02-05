@@ -16,8 +16,11 @@ $issue_closing_pattern = new-object System.Text.RegularExpressions.Regex('([Cc]l
 $github = New-Module -ScriptBlock {
     function GetCommits {
         param([string] $base, [string] $head)
-		$url = "https://api.github.com/repos/$github_repository/compare/" + $base + "..." + $head + "?access_token=$github_token"
-        return  Invoke-RestMethod -Uri $url -Verbose
+        $headers = @{
+            'Authorization' = 'token' + $github_token
+        }
+	$url = "https://api.github.com/repos/$github_repository/compare/" + $base + "..." + $head
+        return  Invoke-RestMethod -Uri $url -Verbose -Headers $headers
     }
  
     Export-ModuleMember -Function GetCommits
