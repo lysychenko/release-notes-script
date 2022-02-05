@@ -18,8 +18,10 @@ $github = New-Module -ScriptBlock {
         param([string] $base, [string] $head)
 		$headers = @{
 		    'Authorization' = 'token' + $github_token
+		    'Accept' = 'application/vnd.github.v3+json'
 		}
 		$url = "https://api.github.com/repos/$github_repository/compare/" + $base + "..." + $head
+		Write-Host ($url)
         return  Invoke-RestMethod -Uri $url -Verbose -Headers $headers
     }
  
