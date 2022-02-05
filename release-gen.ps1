@@ -34,7 +34,7 @@ $github = New-Module -ScriptBlock {
 
 Write-Host ("Getting all commits from git tag v" + $last_release_version + " to commit sha $current_commitId.")
 
-$response = $github.GetCommits($release_version, $current_commitId)
+$response = $github.GetCommits($last_release_version, $current_commitId)
 
 $commits = $response.commits | Sort-Object -Property @{Expression={$_.commit.author.date}; Ascending=$false} -Descending
 
