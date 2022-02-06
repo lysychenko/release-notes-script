@@ -43,15 +43,11 @@ $commits = $response.commits | Sort-Object -Property @{Expression={$_.commit.aut
 # ---------------------------------------------------------
 Write-Host "Generating release notes based on commits."
 $nl = [Environment]::NewLine
-$HTMLreleaseNotes = "<h2>Release Notes</h2>$nl" +
-"<h5>Version <a href='https://github.com/$github_repository/tree/" + $release_version + "' target='_blank'>" + $release_version + "</a></h5>$nl"
 
 $releaseNotes = "## Release Notes<br/>$nl" +
 "#### Version [" + $release_version + "](https://github.com/$github_repository/tree/" + $release_version + ")$nl"
 
 if ($commits -ne $null) {
-
-	$HTMLreleaseNotes = $HTMLreleaseNotes + "<table><thead><tr><th style='width:140px'>Commit</th><th>Description</th></tr></thead><tbody>$nl"
 
 	$releaseNotes = $releaseNotes + "Commit | Description<br/>$nl" + "------- | -------$nl"
 
@@ -70,7 +66,6 @@ if ($commits -ne $null) {
 			-Not $commit.commit.message.ToLower().StartsWith("merging") -and
 			-Not $commit.commit.message.ToLower().StartsWith("private")) {
 		  
-			$HTMLreleaseNotes = $HTMLreleaseNotes + "<tr><td style='width:140px'><a href='https://github.com/$github_repository/commit/" + $commit.sha + "' target='_blank'>" + $commit.sha.Substring(0, 10) + "</a></td><td>" + $commitMessage + "</td></tr>$nl"
 			$releaseNotes = $releaseNotes + "[" + $commit.sha.Substring(0, 10) + "](https://github.com/$github_repository/commit/" + $commit.sha + ") | " + $commit.commit.message.Replace("`r`n"," ").Replace("`n"," ") + "$nl"
 		}
 
@@ -81,14 +76,9 @@ if ($commits -ne $null) {
 
 	}
  
-	$HTMLreleaseNotes = $HTMLreleaseNotes + "</tbody></table>$nl"
 }
 else {
     $releaseNotes = $releaseNotes + "There are no new items for this release.$nl"
 }
 
 New-Item releasenotes.txt -type file -force -value $releaseNotes
-New-Item htmlreleasenotes.txt -type file -force -value $HTMLreleaseNotes
-
-$env:octo_releasenotes = $releaseNotes.Replace($nl, '\n')
-$env:octo_htmlreleasenotes = $HTMLreleaseNotes
